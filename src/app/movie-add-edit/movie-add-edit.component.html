@@ -1,0 +1,37 @@
+<div mat-dialog-title>
+  <h1>Movies</h1>
+</div>
+<form [formGroup]="empForm" (ngSubmit)="onFormSubmit()">
+  <div mat-dialog-content class="content">
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput type="text" placeholder="Ex. Technical" formControlName="title">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Year</mat-label>
+        <input matInput placeholder="1988" formControlName="year">
+      </mat-form-field>
+      <div *ngIf="empForm.controls['year'].invalid && (empForm.controls['year'].dirty || empForm.controls['year'].touched)">
+        <div *ngIf="empForm.controls['year'].hasError('required')">Este campo es requerido.</div>
+        <div *ngIf="empForm.controls['year'].hasError('pattern')">Ingrese solo números.</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Url image</mat-label>
+        <input matInput type="url" placeholder="https://wwww.hola.com" formControlName="url">
+      </mat-form-field>
+      <div *ngIf="urlControl?.invalid && (urlControl?.dirty || urlControl?.touched)">
+        <div *ngIf="urlControl?.hasError('required')">Este campo es requerido.</div>
+        <div *ngIf="urlControl?.hasError('pattern')">URL no válida.</div>
+      </div>
+    </div>
+  </div>
+
+  <div mat-dialog-actions class="action">
+    <button mat-raised-button type="button" [mat-dialog-close]="false">Cancelar</button>
+    <button mat-raised-button color="primary" type="submit">{{ data ? 'Actualizar' : 'Guardar' }}</button>
+  </div>
+</form>
